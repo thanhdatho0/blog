@@ -6,6 +6,8 @@ const handlebars = require('express-handlebars');
 const app = express();
 const port = 3000;
 
+const route = require('./routes');
+
 //Morgan
 app.use(morgan('combined'));
 
@@ -20,14 +22,7 @@ app.set('views', path.join(__dirname, 'resources/views'));
 const result = sass.compile(path.join(__dirname, 'resources/scss/app.scss'));
 console.log(result.css);
 
-
-app.get('/', (req, res) => {
-  res.render('home');
-});
-
-app.get('/news', (req, res) => {
-  res.render('news');
-});
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
